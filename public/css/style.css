@@ -43,7 +43,7 @@ body {
 .indPeepContainer {
 	width: 270px;
 	height: 299px;
-	background-color: #fff;
+	background-color: #E4F1FE;
 	border-radius: 4px;
 	margin-right: 10px;
 	margin-top:10px;
@@ -61,7 +61,7 @@ div #peopleHolder div:nth-child(3n+3){
 	width: 135px;
 	height: 135px;
 	border-radius: 70px;
-	background-color: #ECECEC;
+	background-color: #fff;
 	box-shadow: inset 0px 0px 10px rgba(70,70,70,0.50);
 	padding-top: 7px;
 	-webkit-box-sizing:border-box; 
