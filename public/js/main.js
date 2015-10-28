@@ -6,7 +6,7 @@ function init() {
 
 function renderPeeps(){
 	jQuery.ajax({
-		url : '/api/get',
+		url : '/api/get/people',
 		dataType : 'json',
 		success : function(response) {
 			console.log(response);
@@ -14,18 +14,53 @@ function renderPeeps(){
 			var people = response.people;
 
 			for(var i=0;i<people.length;i++){
-				var htmlToAdd = '<div class="col-md-4">'+
-					'<img src='+people[i].imageUrl+' width="100">'+
-					'<h1>'+people[i].name+'</h1>'+
-				'</div>';
-			
-				jQuery("#people-holder").append(htmlToAdd);
+				var peepName = people[i].name;
+				var peepImage = people[i].imageUrl;
+				//console.log(peepImage);
+				calculateUserContributions(peepName,peepImage);
 			}
 
 
 
 		}
 	})	
+}
+
+function calculateUserContributions(peepName,peepImage){
+	jQuery.ajax({
+		url : '/api/get/places/'+peepName,
+		dataType : 'json',
+		success : function(response) {
+			console.log(response);
+
+			var places = response.places;
+
+			var peepContributions = places.length;
+
+			//console.log(peepContributions);
+
+			appendHTML(peepName,peepImage,peepContributions);
+
+		}
+	})	
+}
+
+function appendHTML(peepName,peepImage,peepContributions){
+	console.log(peepImage);
+	var htmlToAppend = 
+	  '<div class="indPeepContainer">'+
+        '<div class="imageContainer">'+
+          '<img src="'+peepImage+'" alt="" class="imageClip">'+
+        '</div>'+
+        '<div class="nameHolder">'+
+          '<p>'+peepName+'</p>'+
+        '</div>'+
+        '<div class="placeHolder">'+
+          '<p>'+peepContributions+' spots</p>'+
+        '</div>'+
+      '</div>';
+
+      return $('#peopleHolder').append(htmlToAppend);
 }
 
 

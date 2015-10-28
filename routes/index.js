@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 
 // our db models
 var Person = require("../models/person.js");
-var Course = require("../models/course.js");
+var Place = require("../models/place.js");
 
 /**
  * GET '/'
@@ -15,7 +15,7 @@ var Course = require("../models/course.js");
 router.get('/', function(req, res) {
 
   var jsonData = {
-  	'name': 'itp-directory',
+  	'name': 'Spot',
   	'api-status':'OK'
   }
 
@@ -23,17 +23,23 @@ router.get('/', function(req, res) {
   res.json(jsonData)
 });
 
-// router.get('/add-person', function(req,res){
+router.get('/add-person', function(req,res){
 
-//   res.render('add.html')
+  res.render('add-person.html')
 
-// })
+})
 
-// router.get('/directory', function(req,res){
+router.get('/add-place', function(req,res){
 
-//   res.render('directory.html')
+  res.render('add-place.html')
 
-// })
+})
+
+router.get('/people', function(req,res){
+
+  res.render('people.html')
+
+})
 
 
 router.post('/api/create/place', function(req,res){
@@ -45,20 +51,19 @@ router.post('/api/create/place', function(req,res){
 
     //for arrays
     //interests: req.body.interests.split(','),
-
+    userId: req.body.userId,
     name: req.body.name,
     latitude: req.body.latitude,
     longitude: req.body.longitude,
-    type: req.body.type,
+    locationType: req.body.locationType,
     price: req.body.price,
     neighborhood: req.body.neighborhood,
     cuisine: req.body.cuisine,
     vibe: req.body.vibe,
     image: req.body.image,
     food: req.body.food,
-    imageUrl: req.body.imageUrl,
-    url: req.body.url,
-    dateAdded : { type: Date, default: Date.now }
+    url: req.body.url
+    //dateAdded : { type: Date, default: Date.now }
   }
 
   var place = new Place(placeObj);
@@ -91,8 +96,8 @@ router.post('/api/create/person', function(req,res){
   var personObj = {
     name: req.body.name,
     phoneNumber: req.body.phoneNumber,
-    imageUrl: req.body.imageUrl,
-    dateAdded : { type: Date, default: Date.now }
+    imageUrl: req.body.imageUrl
+    //dateAdded : { type: Date, default: Date.now }
   }
 
   var person = new Person(personObj);
@@ -118,7 +123,57 @@ router.post('/api/create/person', function(req,res){
 })
 
 
-router.get('/api/get', function(req,res){
+router.get('/api/get/places', function(req,res){
+
+  Place.find(function(err,data){
+
+      if(err){
+        var error = {
+          status: "ERROR",
+          message: err
+        }
+        return res.json(err)
+      }
+
+      var jsonData = {
+        status: "OK",
+        places: data
+      }
+
+      return res.json(jsonData);
+
+  })
+
+})
+
+router.get('/api/get/places/:id', function(req,res){
+
+  var requestedName = req.params.id;
+  console.log(requestedName);
+
+
+  Place.find({userId:requestedName},function(err,data){
+
+      if(err){
+        var error = {
+          status: "ERROR",
+          message: err
+        }
+        return res.json(err)
+      }
+
+      var jsonData = {
+        status: "OK",
+        places: data
+      }
+
+      return res.json(jsonData);
+
+  })
+
+})
+
+router.get('/api/get/people', function(req,res){
 
   Person.find(function(err,data){
 
@@ -140,6 +195,24 @@ router.get('/api/get', function(req,res){
   })
 
 })
+
+
+router.delete('/api/delete', function(req,res){
+  console.log("yo");
+
+  // let's remove the document where name is "Sam Slover"
+  Person.findOneAndRemove({name:"Greg Housset"},function(err, data){
+    // err
+    if(err) console.log('we have error -> ' + err);
+
+    // let's log out all the updated data
+    console.log(data);
+  })
+  
+})
+
+
+
 
 
 

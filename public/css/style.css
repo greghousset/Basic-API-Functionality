@@ -1,3 +1,113 @@
 /**************/
 /* Custom CSS */
 /**************/
+
+@font-face {
+	font-family: BentonMedium;
+		src: url('fonts/BentonSans-Medium-webfont.ttf'),
+ 			url('fonts/BentonSans-Medium-webfont.eot');
+		}
+
+@font-face {
+	font-family: BentonBook;
+		src: url('fonts/BentonSans-Book-webfont.ttf'),
+ 			url('fonts/BentonSans-Book-webfont.eot');
+		}
+
+@font-face {
+	font-family: BentonLight;
+		src: url('fonts/BentonSans-Light-webfont.ttf'),
+ 			url('fonts/BentonSans-Light-webfont.eot');
+		}
+
+
+body {
+	background-color: #f2f2f2;
+}
+
+.peoplePage {
+	background-color: #22313F;
+	font-size: 62.5%;
+
+}
+
+#container {
+	margin: 50px auto;
+	width: 830px;
+	overflow: auto;
+}
+
+#peopleHolder {
+}
+
+.indPeepContainer {
+	width: 270px;
+	height: 299px;
+	background-color: #fff;
+	border-radius: 4px;
+	margin-right: 10px;
+	margin-top:10px;
+	float: left;
+	box-shadow:0px 1px 5px rgba(30,30,30,0.90);
+	overflow: hidden;
+}
+
+div #peopleHolder div:nth-child(3n+3){
+	margin-right: 0px;
+}
+
+.imageContainer {
+	margin: 24px auto 26px auto;
+	width: 135px;
+	height: 135px;
+	border-radius: 70px;
+	background-color: #ECECEC;
+	box-shadow: inset 0px 0px 10px rgba(70,70,70,0.50);
+	padding-top: 7px;
+	-webkit-box-sizing:border-box; 
+	-moz-box-sizing:border-box; 
+	box-sizing:border-box;
+}
+
+.imageClip {
+  clip-path: circle(60px at center);
+  -webkit-clip-path: circle(60px at center);
+  -moz-clip-path: circle(60px at center);
+}
+
+img {
+	display: block;
+	width: 120px;
+	height: auto;
+	margin: 0 auto;
+}
+
+.nameHolder {
+	float: left;
+	width: 270px;
+	height: 57px;
+	background-color: #E08283;
+	text-align: center;
+}
+
+.nameHolder p {
+	font-family: BentonBook;
+	font-size: 1.9em;
+	color: #fff;
+	letter-spacing: 1.2px;
+}
+
+.placeHolder {
+	float: left;
+	width: 270px;
+	height: 57px;
+	background-color: #F64747;
+	text-align: center;
+}
+
+.placeHolder p {
+	font-family: BentonBook;
+	font-size: 1.9em;
+	color: #fff;
+	letter-spacing: 1.3px;
+}

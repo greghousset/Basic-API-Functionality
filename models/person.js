@@ -5,9 +5,9 @@ var Schema = mongoose.Schema;
 
 var personSchema = new Schema({
 	name: String,
-	phoneNumber: Number,
-	imageUrl: String,
-	dateAdded : { type: Date, default: Date.now }
+	phoneNumber: String,
+	imageUrl: String
+	//dateAdded : { type: Date, default: Date.now }
 })
 
 // export 'Person' model so we can interact with it in other files
