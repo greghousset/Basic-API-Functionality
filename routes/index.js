@@ -96,6 +96,7 @@ router.post('/api/create/person', function(req,res){
   var personObj = {
     name: req.body.name,
     phoneNumber: req.body.phoneNumber,
+    slug : req.body.name.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-'),
     imageUrl: req.body.imageUrl
     //dateAdded : { type: Date, default: Date.now }
   }
@@ -112,11 +113,12 @@ router.post('/api/create/person', function(req,res){
     }
 
     var jsonData = {
-      status: "OK",
+      status: "User Saved",
       person: data
     }
 
-    return res.json(jsonData);
+    console.log(jsonData);
+    res.redirect('/people');
 
   })
 
@@ -146,10 +148,10 @@ router.get('/api/get/places', function(req,res){
 
 })
 
-router.get('/api/get/places/:id', function(req,res){
+router.get('/api/get/places/:slug', function(req,res){
 
-  var requestedName = req.params.id;
-  console.log(requestedName);
+  var requestedName = req.params.slug;
+  //console.log(requestedName);
 
 
   Place.find({userId:requestedName},function(err,data){
@@ -197,16 +199,20 @@ router.get('/api/get/people', function(req,res){
 })
 
 
-router.delete('/api/delete', function(req,res){
-  console.log("yo");
+router.get('/api/delete/person/:slug', function(req,res){
+  var requestedName = req.params.slug;
 
   // let's remove the document where name is "Sam Slover"
-  Person.findOneAndRemove({name:"Greg Housset"},function(err, data){
+  Person.findOneAndRemove({slug:requestedName},function(err, data){
     // err
     if(err) console.log('we have error -> ' + err);
 
     // let's log out all the updated data
-    console.log(data);
+    var jsonData = {
+      status: "Deleted "+requestedName
+    }
+    console.log(jsonData);
+    res.redirect('/people');
   })
   
 })

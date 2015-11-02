@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 var personSchema = new Schema({
 	name: String,
 	phoneNumber: String,
+	slug: { type: String, lowercase: true, required: true, unique: true },
 	imageUrl: String
 	//dateAdded : { type: Date, default: Date.now }
 })
